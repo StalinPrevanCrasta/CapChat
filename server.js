@@ -127,3 +127,33 @@ app.post('/login', async (req, res) => {
 app.listen(3000, () => {
   console.log('Server running on port 3000');
 });
+
+const typingUsers = new Map();
+
+app.post('/typing', async (req, res) => {
+  const { username, isTyping } = req.body;
+  
+  if (isTyping) {
+    typingUsers.set(username, Date.now());
+  } else {
+    typingUsers.delete(username);
+  }
+  
+  res.status(200).json({ message: 'Typing status updated' });
+});
+
+app.get('/typing-users', (req, res) => {
+  const now = Date.now();
+  const activeTypingUsers = [];
+  
+  typingUsers.forEach((timestamp, username) => {
+    // Remove typing status if it's older than 3 seconds
+    if (now - timestamp > 3000) {
+      typingUsers.delete(username);
+    } else {
+      activeTypingUsers.push({ username, isTyping: true });
+    }
+  });
+  
+  res.json(activeTypingUsers);
+});

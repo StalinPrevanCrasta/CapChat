@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import './App.css'
 import Chat from './Chat'
+import './main.css'
 
 function App() {
   const [username, setUsername] = useState('')
@@ -55,24 +55,52 @@ function App() {
   }
 
   return (
-    <div className="app-container">
-      <h1>Welcome to ChatApp</h1>
-      <div className="form-container">
-        {error && <div className="error-message">{error}</div>}
-        <input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button onClick={handleRegister}>Register</button>
-        <button onClick={handleLogin}>Login</button>
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+      <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-2xl shadow-lg">
+        <div className="text-center">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome to ChatApp</h1>
+          <p className="text-gray-500">Connect with friends in real-time</p>
+        </div>
+
+        <div className="space-y-4">
+          {error && (
+            <div className="bg-red-50 text-red-500 p-3 rounded-lg text-sm">
+              {error}
+            </div>
+          )}
+          
+          <div className="space-y-4">
+            <input
+              type="text"
+              placeholder="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className="w-full px-4 py-3 rounded-lg bg-gray-100 border border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full px-4 py-3 rounded-lg bg-gray-100 border border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+            />
+          </div>
+
+          <div className="space-y-3">
+            <button 
+              onClick={handleLogin}
+              className="w-full bg-indigo-600 text-white py-3 rounded-lg hover:bg-indigo-700 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            >
+              Login
+            </button>
+            <button 
+              onClick={handleRegister}
+              className="w-full bg-white text-indigo-600 py-3 rounded-lg border border-indigo-600 hover:bg-indigo-50 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            >
+              Register
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   )
